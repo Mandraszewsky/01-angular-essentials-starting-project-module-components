@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 
 import { DUMMY_USERS } from '../dummy-users';
 
@@ -12,6 +12,7 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.component.css'
 })
 export class UserComponent {
+  ///// Method #1 //// Angular change detection mechanism (reying on zone.js):
   selectedUser = DUMMY_USERS[randomIndex];
 
   //getter
@@ -25,4 +26,14 @@ export class UserComponent {
     this.selectedUser = DUMMY_USERS[randomIndex];
   }
 
+
+  ///// Method #2 //// Signals to notify Angular about changes & updates:
+  // signal is an object that stores a value and angular manages subscriptions to the signal to get notified about changes (containers)
+  selectedUserWithSignal = signal(DUMMY_USERS[randomIndex]);
+  imagePathWithSignal = computed(() => 'assets/users/' + this.selectedUserWithSignal().avatar);
+
+  onSelectUserWithSignal() {
+    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+    this.selectedUserWithSignal.set(DUMMY_USERS[randomIndex]);
+  }
 }
