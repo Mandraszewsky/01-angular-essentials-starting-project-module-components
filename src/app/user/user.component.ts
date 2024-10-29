@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, Input, computed, signal } from '@angular/core';
 
 import { DUMMY_USERS } from '../dummy-users';
 
@@ -12,16 +12,29 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.component.css'
 })
 export class UserComponent {
+  @Input({ required: true }) avatar!: string;
+  @Input({ required: true }) name!: string;
+
+  get imagePath() {
+    return 'assets/users/' + this.avatar;
+  }
+
+  onSelectUser() {
+    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+    this.selectedUser = DUMMY_USERS[randomIndex];
+  }
+
+
   ///// Method #1 //// Angular change detection mechanism (reying on zone.js):
   selectedUser = DUMMY_USERS[randomIndex];
 
   //getter
-  get imagePath() {
+  get imagePathWithDetection() {
     return 'assets/users/' + this.selectedUser.avatar;
   }
 
   //event with managing state and changing date
-  onSelectUser() {
+  onSelectUserWithDetection() {
     const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
     this.selectedUser = DUMMY_USERS[randomIndex];
   }
@@ -36,4 +49,5 @@ export class UserComponent {
     const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
     this.selectedUserWithSignal.set(DUMMY_USERS[randomIndex]);
   }
+
 }

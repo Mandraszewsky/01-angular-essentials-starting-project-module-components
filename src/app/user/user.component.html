@@ -1,9 +1,9 @@
 <div>
-  <button (click)="onSelectUserWithSignal()" >
+  <button (click)="onSelectUser()" >
     <img
-      [src]="imagePathWithSignal()"
-      [alt]="selectedUserWithSignal().name"
+      [src]="imagePath"
+      [alt]="name"
     />
-    <span> {{ selectedUserWithSignal().name }} </span>
+    <span> {{ name }} </span>
   </button>
 </div>
