@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, input, computed, signal } from '@angular/core';
+import { Component, Input, Output, EventEmitter, input, computed, signal, output } from '@angular/core';
 
 import { DUMMY_USERS } from '../dummy-users';
 
@@ -26,9 +26,10 @@ export class UserComponent {
     this.select.emit(this.id);
   }
 
-  // Input signals:
+  // Input signals & output function:
   // avatar = input.required<string>();
   // name = input.required<string>();
+  // select = output<string>();
 
   // imagePath = computed(() => {
   //   return 'assets/users/' + this.avatar()
@@ -36,28 +37,28 @@ export class UserComponent {
 
 
   ///// Method #1 //// Angular change detection mechanism (reying on zone.js):
-  selectedUser = DUMMY_USERS[randomIndex];
+  //selectedUser = DUMMY_USERS[randomIndex];
 
   //getter
-  get imagePathWithDetection() {
-    return 'assets/users/' + this.selectedUser.avatar;
-  }
+  // get imagePathWithDetection() {
+  //   return 'assets/users/' + this.selectedUser.avatar;
+  // }
 
   //event with managing state and changing date
-  onSelectUserWithDetection() {
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-    this.selectedUser = DUMMY_USERS[randomIndex];
-  }
+  // onSelectUserWithDetection() {
+  //   const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+  //   this.selectedUser = DUMMY_USERS[randomIndex];
+  // }
 
 
   ///// Method #2 //// Signals to notify Angular about changes & updates:
   // signal is an object that stores a value and angular manages subscriptions to the signal to get notified about changes (containers)
-  selectedUserWithSignal = signal(DUMMY_USERS[randomIndex]);
-  imagePathWithSignal = computed(() => 'assets/users/' + this.selectedUserWithSignal().avatar);
+  // selectedUserWithSignal = signal(DUMMY_USERS[randomIndex]);
+  // imagePathWithSignal = computed(() => 'assets/users/' + this.selectedUserWithSignal().avatar);
 
-  onSelectUserWithSignal() {
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-    this.selectedUserWithSignal.set(DUMMY_USERS[randomIndex]);
-  }
+  // onSelectUserWithSignal() {
+  //   const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+  //   this.selectedUserWithSignal.set(DUMMY_USERS[randomIndex]);
+  // }
 
 }
