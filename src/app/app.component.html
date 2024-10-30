@@ -15,4 +15,14 @@
     <p id="fallback"> Select a user to see their task! </p>
   }
 
+  <!-- legacy angular (ngFor & ngIf also needs extra imports in component.ts): -->
+  <!-- <li *ngFor="let user of users">
+    <app-user [user]="user" (select)="onSelectedUser($event)" />
+  </li>
+
+  <app-tasks *ngIf="selectedUser; else fallback" [name]="selectedUser!.name" />
+  <ng-template #fallback>
+    <p id="fallback"> Select a user to see their task! </p>
+  </ng-template> -->
+
 </main>
